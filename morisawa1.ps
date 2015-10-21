@@ -150,17 +150,22 @@
   grestore
 } def
 
-% --- original placement ---
-%82.652 680.375 translate
+/scalemin 0.76 def
+/scalemax 0.99 def
+/numsteps 38 def
 
-/scalefactor 0.79 def
+/scalefactor scalemin def
+
+/counter 1 def
+/IncreaseCounter
+{ /counter counter 1 add def } def
 
 /ScaleStep
 { 
-  /scalefactor scalefactor 0.01 add def
-  scalefactor 0.96 ge {
-    /scalefactor 0.96 def
-  } if
+  scalemax numsteps div
+  counter ln mul 
+  add scalemin
+  /scalefactor def
 } def
 
 gsave
@@ -168,7 +173,7 @@ gsave
   1.395 1.395 scale
   0 0 word
   
-  38 {
+ numsteps {
     
     1 scalefactor scale
     
@@ -178,6 +183,7 @@ gsave
     grestore
     
     ScaleStep
+    IncreaseCounter
     
     1 scalefactor scale
     0 -149 translate
